@@ -8,47 +8,46 @@ import * as Plugin from "./quartz/plugins"
  */
 const config: QuartzConfig = {
   configuration: {
-    pageTitle: "Quartz 4",
-    pageTitleSuffix: "",
+    pageTitle: "Yusuf Hacking",
+    pageTitleSuffix: " | Digital Garden",
     enableSPA: true,
     enablePopovers: true,
-    analytics: {
-      provider: "plausible",
-    },
+    analytics: null,
     locale: "en-US",
-    baseUrl: "quartz.jzhao.xyz",
-    ignorePatterns: ["private", "templates", ".obsidian"],
+    baseUrl: "yusufhacking.com",
+    ignorePatterns: ["private", "templates", ".obsidian", "*.canvas"],
     defaultDateType: "modified",
     theme: {
       fontOrigin: "googleFonts",
       cdnCaching: true,
       typography: {
-        header: "Schibsted Grotesk",
-        body: "Source Sans Pro",
-        code: "IBM Plex Mono",
+        header: "Bitter",
+        body: "Source Serif 4",
+        code: "JetBrains Mono",
       },
       colors: {
+        // Architect's Notebook - Rich Brown Palette
         lightMode: {
-          light: "#faf8f8",
-          lightgray: "#e5e5e5",
-          gray: "#b8b8b8",
-          darkgray: "#4e4e4e",
-          dark: "#2b2b2b",
-          secondary: "#284b63",
-          tertiary: "#84a59d",
-          highlight: "rgba(143, 159, 169, 0.15)",
-          textHighlight: "#fff23688",
+          light: "#FAF6F1",      // Warm cream background
+          lightgray: "#E8E0D5",  // Borders, dividers
+          gray: "#A89B8C",       // Graph links, secondary
+          darkgray: "#5C5347",   // Body text (warm charcoal)
+          dark: "#3D352B",       // Headers (rich brown-black)
+          secondary: "#8B5A2B",  // Links (saddle brown)
+          tertiary: "#A67C52",   // Hover states (peru)
+          highlight: "rgba(139, 90, 43, 0.12)",
+          textHighlight: "#F5DEB388",
         },
         darkMode: {
-          light: "#161618",
-          lightgray: "#393639",
-          gray: "#646464",
-          darkgray: "#d4d4d4",
-          dark: "#ebebec",
-          secondary: "#7b97aa",
-          tertiary: "#84a59d",
-          highlight: "rgba(143, 159, 169, 0.15)",
-          textHighlight: "#b3aa0288",
+          light: "#1E1A16",      // Dark warm background
+          lightgray: "#3D352B",  // Borders
+          gray: "#6B5D4D",       // Graph links
+          darkgray: "#D4C8B8",   // Body text (warm light)
+          dark: "#F5EDE3",       // Headers (cream)
+          secondary: "#C4956A",  // Links (muted gold-brown)
+          tertiary: "#D4A574",   // Hover states
+          highlight: "rgba(196, 149, 106, 0.15)",
+          textHighlight: "#8B5A2B55",
         },
       },
     },

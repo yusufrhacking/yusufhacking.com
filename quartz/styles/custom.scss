@@ -1,3 +1,173 @@
 @use "./base.scss";
 
-// put your custom CSS here!
+// ============================================
+// ARCHITECT'S NOTEBOOK - Custom Theme
+// ============================================
+
+// Typography refinements
+h1, h2, h3, h4, h5, h6 {
+  font-weight: 600;
+  letter-spacing: -0.01em;
+}
+
+// Subtle underline accent for h2
+article h2 {
+  position: relative;
+  padding-bottom: 0.5rem;
+}
+
+article h2::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 60px;
+  height: 2px;
+  background: var(--secondary);
+  border-radius: 1px;
+}
+
+// Callouts with refined border
+.callout {
+  border-left: 3px solid var(--secondary);
+  border-radius: 0 4px 4px 0;
+  background: var(--highlight);
+}
+
+// Code blocks with blueprint accent
+pre {
+  border: 1px solid var(--lightgray);
+  border-radius: 4px;
+  position: relative;
+  overflow: hidden;
+}
+
+// Graph view customization
+.graph {
+  border: 1px solid var(--lightgray);
+  border-radius: 8px;
+  background: var(--light);
+}
+
+// Backlinks section
+.backlinks {
+  border-top: 2px solid var(--lightgray);
+  padding-top: 1rem;
+  margin-top: 2rem;
+}
+
+.backlinks h3 {
+  color: var(--secondary);
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+// Tag styling
+a.internal.tag-link {
+  background: var(--highlight);
+  color: var(--secondary);
+  padding: 0.2em 0.6em;
+  border-radius: 3px;
+  font-size: 0.85em;
+}
+
+a.internal.tag-link:hover {
+  background: var(--secondary);
+  color: var(--light);
+}
+
+// Search improvements
+.search-button {
+  border-radius: 6px;
+}
+
+// ============================================
+// HOMEPAGE STYLES
+// ============================================
+
+.section-links {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 1.25rem;
+  margin-top: 2rem;
+  margin-bottom: 2rem;
+}
+
+.section-card {
+  display: block;
+  padding: 1.25rem 1.5rem;
+  border: 1px solid var(--lightgray);
+  border-radius: 8px;
+  background: var(--light);
+  transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+  text-decoration: none;
+}
+
+.section-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  border-color: var(--secondary);
+}
+
+.section-card h3 {
+  margin: 0 0 0.5rem;
+  color: var(--secondary);
+  font-size: 1.1rem;
+}
+
+.section-card p {
+  margin: 0;
+  color: var(--darkgray);
+  font-size: 0.9rem;
+  line-height: 1.5;
+}
+
+// ============================================
+// RESUME PAGE STYLES
+// ============================================
+
+.resume-header {
+  text-align: center;
+  margin-bottom: 2rem;
+  padding-bottom: 1rem;
+  border-bottom: 2px solid var(--secondary);
+}
+
+.resume-header h1 {
+  margin-bottom: 0.25rem;
+  font-size: 2rem;
+}
+
+.resume-header p {
+  margin: 0.25rem 0;
+  color: var(--darkgray);
+}
+
+.resume-download {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.resume-download a {
+  display: inline-block;
+  padding: 0.75rem 1.5rem;
+  background: var(--secondary);
+  color: var(--light);
+  border-radius: 4px;
+  font-weight: 500;
+}
+
+.resume-download a:hover {
+  background: var(--tertiary);
+}
+
+// ============================================
+// RESPONSIVE ADJUSTMENTS
+// ============================================
+
+@media (max-width: 800px) {
+  .section-links {
+    grid-template-columns: 1fr;
+  }
+}
