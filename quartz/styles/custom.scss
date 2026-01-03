@@ -1,173 +1,811 @@
 @use "./base.scss";
 
 // ============================================
-// ARCHITECT'S NOTEBOOK - Custom Theme
+// THE DESIGN MONOGRAPH
 // ============================================
+// An art/design book aesthetic with asymmetric layout,
+// margin annotations, and elegant typography.
+// Inspired by publishers like Phaidon, Taschen, Lars Müller.
 
-// Typography refinements
-h1, h2, h3, h4, h5, h6 {
-  font-weight: 600;
-  letter-spacing: -0.01em;
+// ============================================
+// CSS VARIABLES - Book Elements
+// ============================================
+:root {
+  --page-margin: 2rem;
+  --content-max-width: 38rem;
+  --margin-note-width: 12rem;
+  --margin-note-gap: 3rem;
+  --folio-font: var(--bodyFont);
 }
 
-// Subtle underline accent for h2
-article h2 {
-  position: relative;
-  padding-bottom: 0.5rem;
+// ============================================
+// PAGE FOUNDATION - Warm Paper
+// ============================================
+html {
+  scroll-behavior: smooth;
 }
 
-article h2::after {
-  content: "";
-  position: absolute;
-  left: 0;
-  bottom: 0;
-  width: 60px;
-  height: 2px;
-  background: var(--secondary);
-  border-radius: 1px;
-}
-
-// Callouts with refined border
-.callout {
-  border-left: 3px solid var(--secondary);
-  border-radius: 0 4px 4px 0;
-  background: var(--highlight);
-}
-
-// Code blocks with blueprint accent
-pre {
-  border: 1px solid var(--lightgray);
-  border-radius: 4px;
-  position: relative;
-  overflow: hidden;
-}
-
-// Graph view customization
-.graph {
-  border: 1px solid var(--lightgray);
-  border-radius: 8px;
+body {
   background: var(--light);
+  // Subtle paper texture
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%' height='100%' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");
 }
 
-// Backlinks section
-.backlinks {
-  border-top: 2px solid var(--lightgray);
-  padding-top: 1rem;
+// ============================================
+// TYPOGRAPHY - Book Setting
+// ============================================
+h1, h2, h3, h4, h5, h6 {
+  font-weight: 400;
+  letter-spacing: -0.01em;
+  line-height: 1.2;
+}
+
+// Chapter title style
+article > h1:first-of-type {
+  font-size: 2.75rem;
+  font-weight: 400;
+  line-height: 1.1;
+  margin-bottom: 1rem;
+  letter-spacing: -0.02em;
+}
+
+// Section headings
+article h2 {
+  font-size: 1.5rem;
+  font-weight: 400;
+  margin-top: 4rem;
+  margin-bottom: 1.5rem;
+  padding-top: 2rem;
+  border-top: 1px solid var(--lightgray);
+}
+
+article h3 {
+  font-size: 1.2rem;
+  font-weight: 600;
+  font-style: italic;
+  margin-top: 2.5rem;
+  margin-bottom: 1rem;
+}
+
+article h4, article h5, article h6 {
+  font-size: 1rem;
+  font-weight: 600;
   margin-top: 2rem;
+  margin-bottom: 0.75rem;
 }
 
-.backlinks h3 {
-  color: var(--secondary);
-  font-size: 0.85rem;
-  text-transform: uppercase;
+// ============================================
+// BODY TEXT - Comfortable Reading
+// ============================================
+article p {
+  font-size: 1.05rem;
+  line-height: 1.75;
+  margin-bottom: 1.5rem;
+  text-align: left;
+  hyphens: auto;
+  hanging-punctuation: first last;
+}
+
+// First paragraph - slightly larger
+article > p:first-of-type {
+  font-size: 1.15rem;
+  line-height: 1.7;
+}
+
+// Small caps for abbreviations (manual class)
+.caps {
+  font-variant: small-caps;
   letter-spacing: 0.05em;
 }
 
-// Tag styling
+// ============================================
+// LINKS - Subtle, Book-like
+// ============================================
+a {
+  color: var(--darkgray);
+  text-decoration: underline;
+  text-decoration-color: var(--secondary);
+  text-decoration-thickness: 1px;
+  text-underline-offset: 3px;
+  transition: color 0.2s ease;
+
+  &:hover {
+    color: var(--secondary);
+  }
+
+  &.internal {
+    background: none;
+    padding: 0;
+  }
+}
+
+// Tag links as margin-style annotations
 a.internal.tag-link {
-  background: var(--highlight);
-  color: var(--secondary);
-  padding: 0.2em 0.6em;
-  border-radius: 3px;
-  font-size: 0.85em;
+  font-size: 0.8rem;
+  font-style: italic;
+  color: var(--gray);
+  text-decoration: none;
+
+  &::before {
+    content: "";
+  }
+
+  &:hover {
+    color: var(--secondary);
+  }
 }
 
-a.internal.tag-link:hover {
-  background: var(--secondary);
-  color: var(--light);
+// ============================================
+// LEFT MARGIN - Navigation (Verso side)
+// ============================================
+.sidebar.left {
+  font-size: 0.85rem;
+
+  @media all and (max-width: 800px) {
+    border-bottom: 1px solid var(--lightgray);
+    padding-bottom: 1.5rem;
+    margin-bottom: 2rem;
+  }
 }
 
-// Search improvements
+// Site title - Book title style
+.page-title {
+  font-family: var(--headerFont);
+  font-size: 1rem;
+  font-weight: 400;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--dark);
+  margin-bottom: 3rem;
+  text-decoration: none;
+  display: block;
+
+  // Subtle line beneath like a book spine
+  &::after {
+    content: "";
+    display: block;
+    width: 2rem;
+    height: 1px;
+    background: var(--secondary);
+    margin-top: 1rem;
+  }
+}
+
+// Explorer - Table of Contents style
+.explorer {
+  font-size: 0.85rem;
+  line-height: 1.6;
+
+  // Hide the toggle button
+  button.explorer-toggle {
+    display: none;
+  }
+
+  .folder-title {
+    font-size: 0.7rem;
+    font-weight: 400;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    color: var(--gray);
+    margin-bottom: 0.75rem;
+    margin-top: 1.5rem;
+
+    &:first-child {
+      margin-top: 0;
+    }
+  }
+
+  ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  li {
+    padding: 0.2rem 0;
+  }
+
+  a {
+    color: var(--darkgray);
+    text-decoration: none;
+    transition: color 0.2s ease;
+
+    &:hover {
+      color: var(--secondary);
+    }
+  }
+
+  // Indent nested items
+  ul ul {
+    padding-left: 1rem;
+
+    a {
+      font-size: 0.8rem;
+      color: var(--gray);
+    }
+  }
+}
+
+// ============================================
+// SEARCH & CONTROLS - Minimal
+// ============================================
 .search-button {
-  border-radius: 6px;
+  border: none !important;
+  background: transparent !important;
+  padding: 0.5rem 0 !important;
+  justify-content: flex-start !important;
+
+  p {
+    font-size: 0.8rem;
+    color: var(--gray);
+    font-style: italic;
+  }
+
+  svg {
+    opacity: 0.4;
+    width: 14px;
+    height: 14px;
+  }
+
+  &:hover {
+    p {
+      color: var(--secondary);
+    }
+    svg {
+      opacity: 0.7;
+    }
+  }
+}
+
+#search-container {
+  #search-bar {
+    border-radius: 0;
+    border: 1px solid var(--lightgray);
+    font-family: var(--bodyFont);
+  }
+
+  .search-result-card {
+    border-radius: 0;
+  }
+}
+
+.darkmode {
+  border: none;
+  background: transparent;
+  padding: 0.5rem;
+  opacity: 0.5;
+  transition: opacity 0.2s ease;
+
+  &:hover {
+    opacity: 1;
+  }
+}
+
+// ============================================
+// RIGHT MARGIN - Annotations (Recto side)
+// ============================================
+.sidebar.right {
+  font-size: 0.8rem;
+  color: var(--gray);
+
+  @media all and (min-width: 1200px) {
+    // Push content up to align with article start
+    padding-top: 8rem;
+  }
+}
+
+// Graph as a subtle diagram
+.graph {
+  border: none;
+  background: transparent;
+  margin-bottom: 2rem;
+
+  &::before {
+    content: "Connections";
+    display: block;
+    font-size: 0.65rem;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    color: var(--gray);
+    margin-bottom: 0.5rem;
+  }
+
+  #graph-container, #global-graph-container {
+    border: 1px solid var(--lightgray);
+  }
+
+  #graph-icon, #global-graph-icon {
+    display: none;
+  }
+}
+
+// Table of Contents as margin notes
+.toc {
+  margin-bottom: 2rem;
+
+  h3 {
+    font-size: 0.65rem;
+    font-weight: 400;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    color: var(--gray);
+    margin-bottom: 1rem;
+    font-family: var(--bodyFont);
+  }
+
+  ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  li {
+    padding: 0.15rem 0;
+    line-height: 1.4;
+  }
+
+  a {
+    font-size: 0.8rem;
+    color: var(--gray);
+    text-decoration: none;
+    transition: color 0.2s ease;
+
+    &:hover {
+      color: var(--secondary);
+    }
+  }
+
+  // Nested items
+  ul ul {
+    padding-left: 0.75rem;
+    margin-top: 0.25rem;
+
+    a {
+      font-size: 0.75rem;
+    }
+  }
+
+  // Third level
+  ul ul ul a {
+    font-size: 0.7rem;
+  }
+}
+
+// Backlinks as references
+.backlinks {
+  padding-top: 2rem;
+  border-top: 1px solid var(--lightgray);
+
+  h3 {
+    font-size: 0.65rem;
+    font-weight: 400;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    color: var(--gray);
+    margin-bottom: 1rem;
+    font-family: var(--bodyFont);
+  }
+
+  ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  li {
+    padding: 0.2rem 0;
+  }
+
+  a {
+    font-size: 0.8rem;
+    color: var(--gray);
+    text-decoration: none;
+
+    &:hover {
+      color: var(--secondary);
+    }
+  }
+}
+
+// ============================================
+// CONTENT HEADER - Chapter Opening
+// ============================================
+.breadcrumb-container {
+  font-size: 0.75rem;
+  font-style: italic;
+  color: var(--gray);
+  margin-bottom: 2rem;
+  letter-spacing: 0.02em;
+
+  a {
+    color: var(--gray);
+    text-decoration: none;
+
+    &:hover {
+      color: var(--secondary);
+    }
+  }
+
+  .breadcrumb-element::after {
+    content: " → ";
+    color: var(--lightgray);
+  }
+
+  .breadcrumb-element:last-child::after {
+    content: "";
+  }
+}
+
+// Content meta as running head style
+.content-meta {
+  font-size: 0.75rem;
+  font-style: italic;
+  color: var(--gray);
+  margin-bottom: 3rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid var(--lightgray);
+  letter-spacing: 0.02em;
+}
+
+// Tag list styled as keywords
+.tag-list {
+  margin-bottom: 2rem;
+}
+
+// ============================================
+// ARTICLE CONTENT - The Main Text
+// ============================================
+article {
+  // Comfortable reading measure
+  max-width: var(--content-max-width);
+}
+
+// Blockquotes - Indented extracts
+blockquote {
+  margin: 2.5rem 0;
+  margin-left: 0;
+  padding: 0 0 0 2rem;
+  border-left: 2px solid var(--secondary);
+  font-style: italic;
+  color: var(--gray);
+
+  p {
+    font-size: 1rem;
+    margin-bottom: 0;
+  }
+
+  // Attribution
+  footer, cite {
+    display: block;
+    margin-top: 1rem;
+    font-size: 0.85rem;
+    font-style: normal;
+
+    &::before {
+      content: "— ";
+    }
+  }
+}
+
+// Callouts as sidebars
+.callout {
+  margin: 2rem 0;
+  padding: 1.5rem;
+  border: 1px solid var(--lightgray);
+  background: transparent;
+  border-radius: 0;
+
+  .callout-title {
+    font-size: 0.7rem;
+    font-weight: 400;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    margin-bottom: 0.75rem;
+  }
+
+  .callout-content p {
+    font-size: 0.95rem;
+    margin-bottom: 0;
+  }
+}
+
+// ============================================
+// CODE - Technical Specimens
+// ============================================
+pre {
+  margin: 2rem 0;
+  padding: 1.5rem;
+  border: 1px solid var(--lightgray);
+  background: var(--light) !important;
+  border-radius: 0;
+  overflow-x: auto;
+
+  code {
+    font-size: 0.85rem;
+    background: none;
+    padding: 0;
+  }
+}
+
+code {
+  font-family: var(--codeFont);
+  font-size: 0.9em;
+  background: var(--highlight);
+  padding: 0.15rem 0.35rem;
+  border-radius: 0;
+}
+
+// ============================================
+// TABLES - Data Presentation
+// ============================================
+.table-container > table {
+  width: 100%;
+  margin: 2rem 0;
+  border-collapse: collapse;
+
+  th {
+    font-size: 0.7rem;
+    font-weight: 400;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    text-align: left;
+    padding: 0.75rem;
+    border-bottom: 2px solid var(--dark);
+  }
+
+  td {
+    padding: 0.75rem;
+    border-bottom: 1px solid var(--lightgray);
+    font-size: 0.95rem;
+  }
+
+  tr:last-child td {
+    border-bottom: 2px solid var(--dark);
+  }
+}
+
+// ============================================
+// IMAGES - Gallery Presentation
+// ============================================
+article img {
+  margin: 2rem 0;
+  max-width: 100%;
+  display: block;
+}
+
+// Image captions as figure annotations
+p > img + em,
+figure figcaption {
+  display: block;
+  font-size: 0.8rem;
+  font-style: italic;
+  color: var(--gray);
+  margin-top: 0.75rem;
+  padding-left: 1rem;
+  border-left: 2px solid var(--secondary);
+}
+
+// ============================================
+// HORIZONTAL RULES - Section Breaks
+// ============================================
+hr {
+  border: none;
+  margin: 4rem auto;
+  text-align: center;
+
+  &::before {
+    content: "◆";
+    color: var(--secondary);
+    font-size: 0.75rem;
+  }
+}
+
+// ============================================
+// LISTS - Enumeration
+// ============================================
+article ul, article ol {
+  padding-left: 1.25rem;
+  margin: 1.5rem 0;
+
+  li {
+    margin-bottom: 0.5rem;
+    line-height: 1.7;
+    padding-left: 0.25rem;
+  }
+}
+
+article ul > li {
+  list-style-type: none;
+  position: relative;
+
+  &::before {
+    content: "–";
+    position: absolute;
+    left: -1.25rem;
+    color: var(--secondary);
+  }
+}
+
+// ============================================
+// FOOTER - Colophon Style
+// ============================================
+footer {
+  margin-top: 5rem;
+  padding-top: 2rem;
+  border-top: 1px solid var(--lightgray);
+  font-size: 0.8rem;
+  color: var(--gray);
+  font-style: italic;
+
+  hr {
+    display: none;
+  }
+
+  a {
+    color: var(--gray);
+    text-decoration: none;
+
+    &:hover {
+      color: var(--secondary);
+    }
+  }
 }
 
 // ============================================
 // HOMEPAGE STYLES
 // ============================================
-
 .section-links {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-  gap: 1.25rem;
-  margin-top: 2rem;
-  margin-bottom: 2rem;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 2rem;
+  margin: 3rem 0;
 }
 
 .section-card {
-  display: block;
-  padding: 1.25rem 1.5rem;
-  border: 1px solid var(--lightgray);
-  border-radius: 8px;
-  background: var(--light);
-  transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+  padding: 0;
+  border: none;
   text-decoration: none;
-}
+  transition: transform 0.2s ease;
 
-.section-card:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-  border-color: var(--secondary);
-}
+  &:hover {
+    transform: translateX(0.5rem);
+  }
 
-.section-card h3 {
-  margin: 0 0 0.5rem;
-  color: var(--secondary);
-  font-size: 1.1rem;
-}
+  h3 {
+    font-family: var(--headerFont);
+    font-size: 1.25rem;
+    font-weight: 400;
+    margin: 0 0 0.5rem 0;
+    color: var(--dark);
+  }
 
-.section-card p {
-  margin: 0;
-  color: var(--darkgray);
-  font-size: 0.9rem;
-  line-height: 1.5;
+  p {
+    font-size: 0.95rem;
+    font-style: italic;
+    margin: 0;
+    color: var(--gray);
+    line-height: 1.5;
+  }
+
+  // Arrow indicator
+  &::after {
+    content: "→";
+    display: block;
+    margin-top: 0.75rem;
+    color: var(--secondary);
+    transition: transform 0.2s ease;
+  }
+
+  &:hover::after {
+    transform: translateX(0.25rem);
+  }
 }
 
 // ============================================
-// RESUME PAGE STYLES
+// RUNNING HEADER / FOLIO (optional decorative)
 // ============================================
-
-.resume-header {
-  text-align: center;
-  margin-bottom: 2rem;
-  padding-bottom: 1rem;
-  border-bottom: 2px solid var(--secondary);
+.page {
+  position: relative;
 }
 
-.resume-header h1 {
-  margin-bottom: 0.25rem;
-  font-size: 2rem;
+// Subtle page number / folio style at bottom
+.page::after {
+  content: "";
+  position: fixed;
+  bottom: 2rem;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 1px;
+  height: 2rem;
+  background: var(--lightgray);
+  z-index: 100;
+  pointer-events: none;
+
+  @media (max-width: 800px) {
+    display: none;
+  }
 }
 
-.resume-header p {
-  margin: 0.25rem 0;
-  color: var(--darkgray);
-}
-
-.resume-download {
-  text-align: center;
-  margin-bottom: 2rem;
-}
-
-.resume-download a {
-  display: inline-block;
-  padding: 0.75rem 1.5rem;
+// ============================================
+// SELECTION
+// ============================================
+::selection {
   background: var(--secondary);
   color: var(--light);
-  border-radius: 4px;
-  font-weight: 500;
-}
-
-.resume-download a:hover {
-  background: var(--tertiary);
 }
 
 // ============================================
-// RESPONSIVE ADJUSTMENTS
+// SCROLLBAR - Subtle
 // ============================================
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
 
+::-webkit-scrollbar-track {
+  background: var(--light);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--lightgray);
+
+  &:hover {
+    background: var(--gray);
+  }
+}
+
+// ============================================
+// RESPONSIVE - Mobile Adaptation
+// ============================================
 @media (max-width: 800px) {
+  :root {
+    --page-margin: 1rem;
+  }
+
+  article > h1:first-of-type {
+    font-size: 2rem;
+  }
+
+  article h2 {
+    font-size: 1.3rem;
+    margin-top: 3rem;
+  }
+
+  article p {
+    font-size: 1rem;
+  }
+
+  blockquote {
+    padding-left: 1rem;
+  }
+
   .section-links {
     grid-template-columns: 1fr;
+  }
+}
+
+// ============================================
+// PRINT STYLES - For actual printing
+// ============================================
+@media print {
+  body {
+    background: white;
+  }
+
+  .sidebar, .search-button, .darkmode, .graph {
+    display: none !important;
+  }
+
+  article {
+    max-width: 100%;
+  }
+
+  a {
+    text-decoration: none;
+    color: inherit;
+  }
+
+  hr::before {
+    content: "* * *";
   }
 }

@@ -4,33 +4,16 @@ title: Welcome
 
 # Yusuf Hacking
 
-Welcome to my Zettelkasten
+Welcome to my personal site — a place for notes, ideas, and projects.
 
-<div class="section-links">
+---
 
-<a href="/law-school/" class="section-card">
-<h3>Law School Notes</h3>
-<p>Notes on law school</p>
-</a>
+[[law-school/index|Law School Notes]] — Notes on law school
 
-<a href="/zettelkasten/" class="section-card">
-<h3>Zettelkasten</h3>
-<p>Notes on life</p>
-</a>
+[[zettelkasten/index|Zettelkasten]] — Notes on life
 
-<a href="/blog/" class="section-card">
-<h3>Blog</h3>
-<p>Longer-ish ideas on unresolved questions</p>
-</a>
+[[blog/index|Blog]] — Longer-ish ideas on unresolved questions
 
-<a href="/projects/" class="section-card">
-<h3>Projects</h3>
-<p>Polished work</p>
-</a>
+[[projects/index|Projects]] — Polished work
 
-<a href="/about/" class="section-card">
-<h3>About</h3>
-<p>Who am I?</p>
-</a>
-
-</div>
+[[about/index|About]] — Who am I?

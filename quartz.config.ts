@@ -21,33 +21,33 @@ const config: QuartzConfig = {
       fontOrigin: "googleFonts",
       cdnCaching: true,
       typography: {
-        header: "Bitter",
-        body: "Source Serif 4",
+        header: "Playfair Display",
+        body: "Crimson Pro",
         code: "JetBrains Mono",
       },
       colors: {
-        // Architect's Notebook - Rich Brown Palette
+        // Design Monograph - Warm Cream & Rich Black
         lightMode: {
-          light: "#FAF6F1",      // Warm cream background
-          lightgray: "#E8E0D5",  // Borders, dividers
-          gray: "#A89B8C",       // Graph links, secondary
-          darkgray: "#5C5347",   // Body text (warm charcoal)
-          dark: "#3D352B",       // Headers (rich brown-black)
-          secondary: "#8B5A2B",  // Links (saddle brown)
-          tertiary: "#A67C52",   // Hover states (peru)
-          highlight: "rgba(139, 90, 43, 0.12)",
-          textHighlight: "#F5DEB388",
+          light: "#FAF7F2",      // Warm cream paper
+          lightgray: "#E8E3DA",  // Soft warm gray
+          gray: "#8C8579",       // Warm mid gray
+          darkgray: "#3D3833",   // Warm dark text
+          dark: "#1A1815",       // Rich warm black
+          secondary: "#C45C3E",  // Terracotta accent
+          tertiary: "#D4735A",   // Lighter terracotta
+          highlight: "rgba(196, 92, 62, 0.08)",
+          textHighlight: "#C45C3E22",
         },
         darkMode: {
-          light: "#1E1A16",      // Dark warm background
-          lightgray: "#3D352B",  // Borders
-          gray: "#6B5D4D",       // Graph links
-          darkgray: "#D4C8B8",   // Body text (warm light)
-          dark: "#F5EDE3",       // Headers (cream)
-          secondary: "#C4956A",  // Links (muted gold-brown)
-          tertiary: "#D4A574",   // Hover states
-          highlight: "rgba(196, 149, 106, 0.15)",
-          textHighlight: "#8B5A2B55",
+          light: "#1A1815",      // Rich warm black
+          lightgray: "#2E2A26",  // Dark warm gray
+          gray: "#6B635A",       // Warm mid gray
+          darkgray: "#E8E3DA",   // Cream text
+          dark: "#FAF7F2",       // Warm cream headers
+          secondary: "#D4735A",  // Terracotta accent
+          tertiary: "#E08B6D",   // Lighter terracotta
+          highlight: "rgba(212, 115, 90, 0.12)",
+          textHighlight: "#C45C3E33",
         },
       },
     },
